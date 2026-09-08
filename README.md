@@ -1,2 +1,6 @@
 # deep_helmholtz
-deep learned deep helmholtz energies
+
+Deep learned deep helmholtz energies :)
+
+If repo is empty, ask owner to add stuff (might need motivation).
+
