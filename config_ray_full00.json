@@ -1,0 +1,64 @@
+{
+  "_comment": "Configuration for train_model_new.ipynb - Flexible goal-based training",
+  "_instructions": "Minimal config - trunk/target features are derived from training_preset. Only parameter_columns need to be specified.",
+
+  "_data_paths": "Data file paths",
+  "data_csv_train": "full_data_6/data_res_full_train.csv",
+  "data_csv_val": "full_data_6/data_res_full_val.csv",
+  "substance_params_csv": "full_data_6/saft_parameters.csv",
+
+  "_vle_data_paths": "VLE data paths (required for P_SAT training)",
+  "vle_data_csv_train": "full_data_6/data_vle_full_train.csv",
+  "vle_data_csv_val": "full_data_6/data_vle_full_val.csv",
+
+  "_column_mappings": "Only user-configurable columns",
+  "id_column": "ID",
+  "_parameter_columns": ["m_norm", "sigma_norm", "epsilon_k_norm","mu_norm","kappa_ab_norm", "epsilon_k_ab_norm"],
+  "parameter_columns": ["m_norm", "sigma_norm", "epsilon_k_norm",
+                        "is_associating", "kappa_ab_val", "epsilon_k_ab_val",
+                        "has_dipole", "mu_val"],
+
+  "_model_path": "Output directory for trained model",
+  "model_path": "trained_models/vle_fine_tuning_fin2/",
+  "pretrained_model_path": "ray_results/heos_fin1/d29fd_00000/best_model.pt",
+
+  "num_threads": 16,
+
+  "_network_architecture": "Neural network configuration",
+  "depth": 3,
+  "width": 2048,
+  "activation": "gelu",
+  "dropout_rate": 0.0,
+  "apply_bias": true,
+
+  "_flexible_training": "Goal-based training configuration",
+  "_training_preset_options": "Available: a_res_only, p_res_only, p_sat_only, p_res_and_p_sat, all_residuals, all_plus_p_sat",
+  "training_preset": "all_plus_p_sat",
+  "_custom_goals_comment": "Override preset with list, e.g. [\"A_RES\", \"P_RES\", \"P_SAT\"]",
+  "custom_goals": null,
+
+  "_checkpoint_settings": "Checkpoint and resume configuration",
+  "resume_from_checkpoint": true,
+
+  "_training_hyperparameters": "Optimizer and schedule settings",
+  "lr": 1e-5,
+  "weight_decay": 1e-07,
+  "batch_size": 64,
+  "vle_batch_size": 32,
+  "max_epochs": 1000,
+  "patience": 50,
+
+  "_adaptive_loss_settings": "Adaptive loss aggregation parameters",
+  "ema_alpha": 0.1,
+  "gradient_clip_norm": 10.0,
+
+  "pretrain": false,
+  "max_epochs_pretrain": 100,
+  "patience_pretrain": 20,
+  "pretrain_lr_factor": 10.0,
+
+  "lipschitz_penalty": false,
+  "lipschitz_target": 400.0,
+  "lipschitz_lambda": 0.01
+
+}

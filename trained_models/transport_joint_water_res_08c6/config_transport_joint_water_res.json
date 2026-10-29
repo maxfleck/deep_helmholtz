@@ -1,0 +1,82 @@
+{
+  "_comment": "Joint training: residual + VLE + transport simultaneously for water.",
+  "_instructions": "All three datasets active. freeze_a_res_net=false for end-to-end training.",
+
+  "_data_paths": "Residual EOS training data",
+  "data_csv_train": "water_data/data_res_full_train.csv",
+  "data_csv_val":   "water_data/data_res_full_val.csv",
+
+  "_vle_data_paths": "VLE saturation data",
+  "vle_data_csv_train": "",
+  "vle_data_csv_val":   "",
+
+  "_transport_data_paths": "Transport measurement CSV — columns: ID, temperature_K, pressure_Pa, mw_mix_g_mol, molar_density_mol_m3 (optional rho_init), viscosity, diffusion_m2_s",
+  "transport_data_csv_train": "water_transport/water_transport_train.csv",
+  "transport_data_csv_val":   "water_transport/water_transport_val.csv",
+
+  "substance_params_csv": "water_data/saft_parameters.csv",
+
+  "_column_mappings": "",
+  "id_column": "ID",
+  "parameter_columns": ["m_norm", "sigma_norm", "epsilon_k_norm",
+                        "is_associating", "kappa_ab_val", "epsilon_k_ab_val",
+                        "has_dipole", "mu_val"],
+
+  "_model_path": "",
+  "xmodel_path": "trained_models/transport_joint_water_res_00/",
+  "xpretrained_model_path": "trained_models/transport_joint_water_06/best_model.pt",
+  "3pretrained_model_path": "trained_models/res_water_fine_tuning_vle08/best_model.pt",
+  "model_path": "trained_models/transport_joint_water_res_08/",
+  "pretrained_model_path": "ray_results/ray_results/heos_fin1/d29fd_00000/best_model.pt",
+
+  "_freeze_flags": "Both unfrozen for end-to-end refinement",
+  "freeze_a_res_net":    false,
+  "freeze_transport_net": false,
+
+  "_network_architecture": "Must match pretrained model",
+  "depth": 3,
+  "width": 2048,
+  "activation": "gelu",
+  "dropout_rate": 0.0,
+
+  "_transport_net": "MotHONet: 0 = no transport net; p = number of DeepONet modes",
+  "transport_lr_scale": 0.1,
+  "transport_net_hidden": 128,
+  "transport_net_layers": 2,
+  "xtransport_net_p": 12,
+  "transport_net_p": 3,
+
+  "_flexible_training": "",
+  "_training_preset_options": "transport_both | transport_viscosity | p_res_and_transport_both | p_res_and_diffusion",
+  "training_preset": "p_res_and_transport_both",
+
+  "_checkpoint_settings": "",
+  "resume_from_checkpoint": false,
+
+  "use_vle_search": false,
+  "vle_search_n_steps": 10,
+  "transport_rho_n_steps": 10,
+
+  "_training_hyperparameters": "Lower LR for joint fine-tuning",
+  "xlr": 1e-5,
+  "lr": 1e-6,
+  "weight_decay": 1e-7,
+  "batch_size": 32,
+  "max_epochs": 500,
+  "patience": 50,
+
+  "pretrain_transport": true,
+  "transport_pretrain_lr_factor": 10000.0,
+  "_transport_pretrain_lr": 1e-2,
+  "max_epochs_transport_pretrain": 10000,
+
+
+  "_adaptive_loss_settings": "",
+  "ema_alpha": 0.1,
+  "gradient_clip_norm": 10.0,
+
+  "pretrain": false,
+  "lipschitz_penalty": false,
+  "lipschitz_target": 400.0,
+  "lipschitz_lambda": 0.01
+}

@@ -1,0 +1,38 @@
+[project]
+name = "helmholtz_eos_net"
+version = "0.1.0"
+description = "NN for thermodynamic equation of state predictions with trainable substance parameters"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+	"torch",
+	"pandas",
+	"scikit-learn",
+	"joblib",
+	"ray",
+	"ray[train]",
+	"numpy<2.0",
+	"scipy",
+	"paretoset",
+]
+
+[project.optional-dependencies]
+dev = [
+	"matplotlib",
+	"seaborn",
+	"jupyter",
+	"ipykernel",
+	"ipywidgets",
+	"feos==0.8.0",
+	"si-units==0.11.0",
+	"tqdm",
+	"chemicals",
+	"pyod"
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["helmholtz_eos_net*"]

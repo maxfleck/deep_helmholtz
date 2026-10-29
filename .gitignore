@@ -1,0 +1,11 @@
+__pycache__/
+.venv/
+uv.lock
+full_data*/
+modified_models/
+*png
+checkpoint.pt
+best_model.pt
+trained_models/**/*pdf
+ray_results/**/*pdf
+trained_models/chem*/
